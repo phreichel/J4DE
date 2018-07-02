@@ -1,0 +1,30 @@
+<Configuration>
+
+<Domain name="Debug">
+	<Property name="debug" value="true"/>
+	<Sequence name="renderflags">
+		<Value>lighting</Value>
+		<Value>normals</Value>
+		<Value>dynamic</Value>
+	</Sequence>
+</Domain>
+
+<Domain name="Settings">
+</Domain>
+
+<Domain name="Keybinding">
+</Domain>
+
+<Domain name="Texts">
+</Domain>
+
+<Domain name="Textures">
+</Domain>
+
+<Domain name="Models">
+</Domain>
+
+<Domain name="Animations">
+</Domain>
+
+</Configuration>
