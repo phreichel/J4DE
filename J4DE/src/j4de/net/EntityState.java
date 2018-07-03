@@ -4,39 +4,95 @@ package j4de.net;
 
 //*************************************************************************************************
 import java.util.UUID;
+import java.nio.ByteBuffer;
 //*************************************************************************************************
 
 //*************************************************************************************************
-public interface EntityState {
+public class EntityState {
 
 	//==============================================================================================
-	public UUID getID();    // entity id
-	//==============================================================================================
-
-	//==============================================================================================
-	public double getRx();  // absolute x location
-	public double getRy();  // absolute y location
-	public double getRz();  // absolute z location
+	private UUID uuid = null;
 	//==============================================================================================
 
 	//==============================================================================================
-	public double getVx();  // absolute x velocity
-	public double getVy();  // absolute y velocity
-	public double getVz();  // absolute z velocity
+	private double rx = 0.0;
+	private double ry = 0.0;
+	private double rz = 0.0;
+	//==============================================================================================
+
+	//==============================================================================================
+	private double vx = 0.0;
+	private double vy = 0.0;
+	private double vz = 0.0;
 	//==============================================================================================
 	
 	//==============================================================================================
-	public double getOa();  // absolute orientation quaternion a
-	public double getOb();  // absolute orientation quaternion b
-	public double getOc();  // absolute orientation quaternion c
-	public double getOd();  // absolute orientation quaternion d
+	public UUID getUUID() {
+		return this.uuid;
+	}
+	//==============================================================================================
+	
+	//==============================================================================================
+	public double getRx() {
+		return this.rx;
+	}
+	//==============================================================================================
+	
+	//==============================================================================================
+	public double getRy() {
+		return this.ry;
+	}
 	//==============================================================================================
 
 	//==============================================================================================
-	public double getAa();  // absolute velocity quaternion a
-	public double getAb();  // absolute velocity quaternion b
-	public double getAc();  // absolute velocity quaternion c
-	public double getAd();  // absolute velocity quaternion d
+	public double getRz() {
+		return this.rz;
+	}
+	//==============================================================================================
+
+	//==============================================================================================
+	public double getVx() {
+		return this.vx;
+	}
+	//==============================================================================================
+	
+	//==============================================================================================
+	public double getVy() {
+		return this.vy;
+	}
+	//==============================================================================================
+
+	//==============================================================================================
+	public double getVz() {
+		return this.vz;
+	}
+	//==============================================================================================
+
+	//==============================================================================================
+	public void marshal(ByteBuffer buffer) {
+		buffer.putLong(uuid.getMostSignificantBits());
+		buffer.putLong(uuid.getLeastSignificantBits());
+		buffer.putDouble(this.rx);
+		buffer.putDouble(this.ry);
+		buffer.putDouble(this.rz);
+		buffer.putDouble(this.vx);
+		buffer.putDouble(this.vy);
+		buffer.putDouble(this.vz);
+	}
+	//==============================================================================================
+
+	//==============================================================================================
+	public void unmarshal(ByteBuffer buffer) {
+		long uuidMostSignificantBits  = buffer.getLong();
+		long uuidLeastSignificantBits = buffer.getLong();
+		this.uuid = new UUID(uuidMostSignificantBits, uuidLeastSignificantBits);
+		this.rx = buffer.getDouble();
+		this.ry = buffer.getDouble();
+		this.rz = buffer.getDouble();
+		this.vx = buffer.getDouble();
+		this.vy = buffer.getDouble();
+		this.vz = buffer.getDouble();
+	}
 	//==============================================================================================
 	
 }
