@@ -21,6 +21,9 @@ public class PWorld implements Serializable {
 
 	//==============================================================================================
 	private static final long serialVersionUID = 1L;
+	//==============================================================================================
+
+	//==============================================================================================
 	private static final File DATFILE = new File("data/WORLD.DAT");
 	//==============================================================================================
 
@@ -56,11 +59,13 @@ public class PWorld implements Serializable {
 	//==============================================================================================
 
 	//==============================================================================================
+	@SuppressWarnings("unchecked")
 	private void load(File file) {
 		try {
 			FileInputStream   ifs = new FileInputStream(DATFILE);
 			ObjectInputStream ids = new ObjectInputStream(ifs);
 			entities = (List<PEntity>) ids.readObject();
+			ids.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -73,6 +78,7 @@ public class PWorld implements Serializable {
 			FileOutputStream   ofs = new FileOutputStream(DATFILE);
 			ObjectOutputStream ods = new ObjectOutputStream(ofs);
 			ods.writeObject(entities);
+			ods.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
